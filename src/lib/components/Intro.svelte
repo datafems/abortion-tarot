@@ -16,7 +16,7 @@
 </script>
 <div style="display: flex; justify-content: center;">
   <img 
-    src='src/lib/assets/logo.svg' 
+    src='$lib/assets/logo.svg' 
     alt="datafems-logo"
     class="logo"
     loading="lazy"
