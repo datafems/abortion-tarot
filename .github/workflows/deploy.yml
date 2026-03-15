@@ -18,11 +18,11 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm i
+        run: npm install
 
       - name: Build
         env:
-          BASE_PATH: '/${{ github.event.repository.name }}'
+          BASE_PATH: '/abortion-tarot'
         run: npm run build
 
       - name: Upload Artifacts
