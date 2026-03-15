@@ -1,0 +1,18 @@
+      :root {
+        /*--color-primary: #6b46c1;
+        --color-primary: #761e76;
+        --color-accent: #c3a6cf;
+        */
+        --color-primary: #612d62;
+        --color-secondary: #954e99;
+        --color-accent: #e9d8fd;
+        --color-soft-green: #dbfdae;
+        --color-red: #fc5348;
+        --color-dark: #1a202c;
+        --color-light: #f7fafc;
+        --color-gray: #718096;
+        --color-highlight: #dbfdae;
+        --color-alert: #fc8181;
+        --spacing-unit: 8px;
+        --max-width: 740px;
+      }
