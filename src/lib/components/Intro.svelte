@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import logo from '$lib/assets/logo.svg';
 
   const dispatch = createEventDispatcher();
   
@@ -16,7 +17,7 @@
 </script>
 <div style="display: flex; justify-content: center;">
   <img 
-    src='$lib/assets/logo.svg' 
+    src={logo}
     alt="datafems-logo"
     class="logo"
     loading="lazy"
