@@ -6,8 +6,6 @@
   import type * as Types from '$lib/types';
   import { trackEvent } from '@lukulent/svelte-umami'
 
-  export let post: { slug: string, title: string }
-
   // Props from parent component
   export let userData = {
     province: '',
@@ -372,11 +370,6 @@
   });
 
 function saveCard(card: { src: string; name: string; filename: string; key: string; } | { src: string; name: string; filename: string; key: string; } | { src: string; name: string; filename: string; key: string; }) {
-  trackEvent('image_save', {
-    slug: post.slug,
-    title: post.title
-  })
-  
   const img = new Image();
   img.crossOrigin = "anonymous";
 
@@ -410,6 +403,12 @@ function saveCard(card: { src: string; name: string; filename: string; key: stri
     link.download = `${card.filename}.png`;
     link.click();
   };
+
+  trackEvent('image_save', {
+    name: card.name,
+    filename: card.filename,
+    key: card.key
+  })
 
   img.src = card.src;
 }
