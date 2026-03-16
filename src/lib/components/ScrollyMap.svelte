@@ -369,50 +369,48 @@
     }
   });
 
-function saveCard(card: { src: string; name: string; filename: string }, cardKey: string  ) {
-  const img = new Image();
-  img.crossOrigin = "anonymous";
+function saveCard(card: { src: string; name: string; filename: string; key: string }) {
+    const img = new Image()
+    img.crossOrigin = 'anonymous'
 
-  img.onload = function () {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    img.onload = function () {
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
 
-    const width = 1080;
-    const height = 1350;
+      const width = 1080
+      const height = 1350
+      canvas.width = width
+      canvas.height = height
 
-    canvas.width = width;
-    canvas.height = height;
+      ctx.fillStyle = '#e9d8fd'
+      ctx.fillRect(0, 0, width, height)
 
-    ctx.fillStyle = "#e9d8fd";
-    ctx.fillRect(0, 0, width, height);
+      const scale = Math.min(width / img.width, height / img.height)
+      const newWidth = img.width * scale
+      const newHeight = img.height * scale
+      const x = (width - newWidth) / 2
+      const y = (height - newHeight) / 2
+      ctx.drawImage(img, x, y, newWidth, newHeight)
 
-    const scale = Math.min(width / img.width, height / img.height);
+      const pngUrl = canvas.toDataURL('image/png')
+      const link = document.createElement('a')
+      link.href = pngUrl
+      link.download = `${card.filename}.png`
+      link.click()
 
-    const newWidth = img.width * scale;
-    const newHeight = img.height * scale;
+      trackEvent('image_save', {
+        key: card.key,
+        name: card.name,
+        filename: card.filename,
+      })
+    }
 
-    const x = (width - newWidth) / 2;
-    const y = (height - newHeight) / 2;
+    img.onerror = () => {
+      trackEvent('image_save_error', { key: card.key, src: card.src })
+    }
 
-    ctx.drawImage(img, x, y, newWidth, newHeight);
-
-    const pngUrl = canvas.toDataURL("image/png");
-
-    const link = document.createElement("a");
-    link.href = pngUrl;
-    link.download = `${card.filename}.png`;
-    link.click();
-
-    trackEvent('image_save', {
-      name: card.name,
-      filename: card.filename,
-    })
-  };
-
-
-
-  img.src = card.src;
-}
+    img.src = card.src
+  }
 
 </script>
 
