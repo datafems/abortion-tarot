@@ -287,7 +287,7 @@
         .attr("cx", (d: { lon: string | number; lat: string | number; }) => projection([+d.lon, +d.lat])[0])
         .attr("cy", (d: { lon: string | number; lat: string | number; }) => projection([+d.lon, +d.lat])[1])
         .attr("r", 3)
-        .attr("fill", "var(--color-red)")
+        .attr("fill", "var(--color-highlight)")
         .attr("opacity", 0.8);
 
       console.log('Map rendered successfully');
@@ -497,7 +497,7 @@ function saveCard(card: { src: string; name: string; filename: string; key: stri
             ที่เข้าถึงสิทธิสุขภาพจากรัฐและอาจมีมากกว่านี้ เพียงแต่พวกเขายังคงเข้าไม่ถึงสิทธิสุขภาพสปสช. (สิทธิบัตรทอง/ประกันสังคม/ข้าราชการ)
           </p>
         {/if}
-        <p class="tip-hint">🖱️ ลองคลิกที่จังหวัดบนแผนที่</p>  
+        <p class="tip-hint">ลองคลิกที่จังหวัดบนแผนที่</p>  
       </div>
     </div>    
 
@@ -508,7 +508,7 @@ function saveCard(card: { src: string; name: string; filename: string; key: stri
         <p>หน่วยบริการทำแท้งปลอดภัยอย่างน้อย
         <span class="stat-number">{(totalClinicCount ?? 0).toLocaleString()} แห่ง</span>
         กระจายอยู่ทั่วประเทศ ซึ่งสามารถใช้สิทธิบัตรทอง/ประกันสังคม/ข้าราชการ</p>
-        <p class="tip-hint">🖱️ ลองคลิกที่หน่วยบริการทำแท้งปลอดภัยบนแผนที่</p>  
+        <p class="tip-hint">ลองคลิกที่หน่วยบริการทำแท้งปลอดภัยบนแผนที่</p>  
       </div>
     </div>
 
@@ -524,7 +524,7 @@ function saveCard(card: { src: string; name: string; filename: string; key: stri
         {:else}
         <!-- กรณีจังหวัดมีข้อมูล -->
         <p>จังหวัดของคุณมีหน่วยบริการทำแท้งปลอดภัยอย่างน้อย <span class="stat-number">{clinicCount} แห่ง</span></p>
-        <p class="tip-hint">🖱️ ลองคลิกที่หน่วยบริการทำแท้งปลอดภัยบนแผนที่</p>  
+        <p class="tip-hint">ลองคลิกที่หน่วยบริการทำแท้งปลอดภัยบนแผนที่</p>  
         <p class="question-highlight">โรงพยาบาล/คลินิกที่คุณใช้บริการ มีบริการทำแท้งปลอดภัยไหม?</p>
         {/if}
       </div>
@@ -539,7 +539,7 @@ function saveCard(card: { src: string; name: string; filename: string; key: stri
           อยู่ห่างไกลออกไปไม่เท่ากันแต่ละพื้นที่
           </span>
         </p>
-        <p class="description">* ใช้วิธีคำนวณระยะเดินทางจากศูนย์กลางของพื้นที่เขต/อำเภอไปถึงหน่วยบริการที่ใกล้ที่สุด ด้วย OpenStreetMap</p>
+        <p class="description">* ใช้วิธีคำนวณระยะเดินทางด้วยรถยนต์จากศูนย์กลางของพื้นที่เขต/อำเภอไปถึงหน่วยบริการที่ใกล้ที่สุด ด้วย Open Source Routing Machine (OSRM)</p>
       </div>
     </div>
 
