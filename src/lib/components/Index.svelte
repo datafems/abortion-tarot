@@ -10,16 +10,6 @@
   let description = "สถานการณ์ทำแท้งปลอดภัยตอนนี้เป็นยังไงบ้าง ปี 2569";
   let image = "http://datafems.github.io/abortion-tarot/cover.png";
   let url = "http://datafems.github.io/abortion-tarot/";
-
-  onMount(() => {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap";
-
-    document.head.appendChild(link);
-  });
-
   
   // App state
   let currentScreen = 'intro'; // 'intro' | 'province' | 'card' | 'story' | 'methodology'
@@ -27,6 +17,8 @@
     province: '',
     cardKey: ''
   };
+
+  let expanded = false;
   
   // Navigation handlers
   // from Intro to ProvinceSelection
@@ -169,7 +161,12 @@
       
     <section class="methodology-container">
       <div class="methodology-content" style="text-align:justify;">
-        <h2>กระบวนการทำงาน</h2>
+        <h2>กระบวนการทำงาน <button class="toggle-btn" on:click={() => expanded = !expanded}>
+          {expanded ? 'ซ่อน' : 'แสดง'}
+        </button></h2>
+
+
+        {#if expanded}
         <p>ระยะเวลา 5 ปีนับจากการแก้ไขเพิ่มเติมประมวลกฎหมายอาญา (ฉบับที่ 26) พ.ศ.2564 ข้อมูลโรงพยาบาล/คลินิกที่เปิดเผยบริการทำแท้งปลอดภัยยังคงไม่เปิดเผยทั้งหมด เนื่องจากเหตุผอคติการตรีตราของผู้ให้บริการและสังคม</p>
         <p>คำถามสำคัญคือหน่วยบริการทำแท้งอยู่ที่ไหนบ้างและแต่ละพื้นที่อยู่ห่างจากหน่วยบริการแค่ไหน</p>
         <p>ผู้เขียนเลือกใช้ข้อมูลเปิดสาธารณะจากสปสช. งบประมาณบริการสร้างเสริมสุขภาพและป้องกันโรค ประจำปีงบ 2568 เป็นจุดตั้งต้น 
@@ -188,6 +185,7 @@
         <p>3. <a href="https://www.ratchakitcha.soc.go.th/DATA/PDF/2564/A/010/T_0001.PDF">พระราชบัญญัติแก้ไขเพิ่มเติมประมวลกฎหมายอาญา (ฉบับที่ 26) พ.ศ.2564</a></p>
         <p>4. <a href="https://www.facebook.com/SafeAbortionThailand/posts/pfbid0ABUfwwuwpsg3nsMho4pBtNtkRAtBEyTCZ4Hmd74xoGuYtz39z7Ckv1VdB55uWFswl?locale=th_TH">มูลนิธิทำทางเสนอกุญแจ 3 ดอก ปลดล็อกการทำแท้งปลอดภัย</a></p>
         <p>5. <a href="https://youtu.be/A4LpFzbEIgc?si=oB-tJ4vFLeRIWSGp">ฉันแค่ทำแท้ง ฉันไม่ได้ทำผิด | พูดมาก Podcast EP.136</a></p>
+      {/if}
       </div>
     </section>
     <section class="contact-container">
@@ -261,6 +259,21 @@ h2 {
   margin-top: 20px;
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-btn {
+  padding: 12px 24px;
+  background: var(--color-light);
+  width: 60px;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(149, 78, 153, 0.2);
+  padding: 0.25rem 0;
+  margin-bottom: 0.5rem;
 }
 
 /* Contact Section */
