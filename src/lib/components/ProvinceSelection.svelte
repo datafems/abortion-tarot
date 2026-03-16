@@ -88,11 +88,13 @@
 
 <style>
   .province-selection-container {
-    min-height: 100vh;
+    height: 100dvh; 
+    max-height: 100dvh;
     display: flex;
     justify-content: center;
     /*align-items: center;*/
     padding: 5rem 1rem;
+    box-sizing: border-box;
     background: var(--color-accent);
     background: linear-gradient(180deg, var(--color-accent) , var(--color-light));
     position: relative;

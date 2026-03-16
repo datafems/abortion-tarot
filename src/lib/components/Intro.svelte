@@ -15,7 +15,8 @@
     dispatch('next', { userData });
   }
 </script>
-<div style="display: flex; justify-content: center;">
+<div class="intro-container">
+<div style="display: flex">
   <img 
     src={logo}
     alt="datafems-logo"
@@ -24,7 +25,6 @@
   />
 </div>
 
-<div class="intro-container">
   <div class="intro-content">
     <!-- Main heading -->
     <div class="heading-group">
@@ -34,7 +34,7 @@
       <h3 class="tagline">ฉันหรือใครกำหนดอนาคต?</h3>
     </div>
   
-    <h4 style="color: var(--color-dark);">By Purinat Payanon</h4>
+    <h4 style="color: var(--color-dark); font-weight: 400;">By Purinat Payanon</h4>
 
     <!-- Decorative divider -->
     <div class="divider"></div>
@@ -61,10 +61,12 @@
   }
 
   .intro-container {
-    min-height: 100vh;
+    height: 100dvh; 
+    max-height: 100dvh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     padding: 2rem 1rem;
+    box-sizing: border-box;
     background: var(--color-accent);
     background: linear-gradient(180deg, var(--color-accent) , var(--color-light));
     position: relative;
@@ -75,6 +77,8 @@
     font-family: "Niramit", sans-serif;
     max-width: 500px;
     width: 100%;
+    justify-content: center;
+    align-self: center;
     text-align: center;
     z-index: 1;
     animation: fadeInUp 0.8s ease-out;
