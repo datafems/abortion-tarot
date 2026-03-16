@@ -87,7 +87,7 @@ export function resetView(mapLayer: MapLayer, provincePaths: ProvincePaths, clin
     .ease(d3.easeCubicInOut)
     .attr("r", 3)
     .attr("opacity", "0") //0.8
-    .attr("fill", "var(--color-red");
+    .attr("fill", "var(--color-highlight)");
 
   districtPaths
     .transition()
@@ -257,11 +257,11 @@ export function zoomToProvince(
     .ease(d3.easeCubicInOut)
     .attr("fill", d =>
       d.properties.pro_th === provinceName
-        ? "#dbfdae"
+        ? "var(--color-gray)"
         : "var(--color-dark)"
     )
     .attr("opacity", d =>
-      d.properties.pro_th === provinceName ? 1 : 0.2
+      d.properties.pro_th === provinceName ? 0.6 : 0.2
     )
     .attr("stroke-width", d =>
       d.properties.pro_th === provinceName ? 1.5 / scale : 0.5 / scale
@@ -300,7 +300,7 @@ export function zoomToProvince(
     .attr("opacity", d =>
       d.province_name === provinceName ? 1 : 0.1
     )
-    .attr("fill", "var(--color-red)");
+    .attr("fill", "var(--color-highlight)");
 
 }
 
@@ -339,7 +339,7 @@ export function highlightProvinces(provinceNames: string[], provincePaths: Provi
     .attr("r", d =>
       provinceNames.includes(d.province_name) ? 5 : 3
     )
-    .attr("fill", "var(--color-red)");
+    .attr("fill", "var(--color-highlight)");
 }
 
 /**
@@ -432,7 +432,7 @@ export function highlightProvincesNonAccess(provinceNames: string[], path: any, 
     })
     .attr("r", 3)
     .attr("fill", d =>
-      provinceNames.includes(d.province_name) ? "#999" : "var(--color-red)"
+      provinceNames.includes(d.province_name) ? "#999" : "var(--color-highlight)"
     );
   
   districtPath
@@ -485,113 +485,9 @@ export function highlightAllClinics(provincePaths: ProvincePaths, clinicCircles:
     .ease(d3.easeCubicInOut)
     .attr("opacity", 0.9)
     .attr("r", 3)
-    .attr("fill", "var(--color-red");
+    .attr("fill", "var(--color-highlight)");
 }
 
-/*
-function zoomToProvinceTravel(provinceName, provinceData, states, clinics, districts, districtData) {
-          const feature = states.find(
-            (d) => d.properties.pro_th === provinceName
-          );
-          if (!feature) return;
-
-          const [[x0, y0], [x1, y1]] = path.bounds(feature);
-          const dx = x1 - x0;
-          const dy = y1 - y0;
-          const x = (x0 + x1) / 2;
-          const y = (y0 + y1) / 2;
-          const scale = Math.min(14, 0.9 / Math.max(dx / width, dy / height));
-
-          const distanceByDistrict = new Map(
-            districtData.map(d => [d.adm2_pcode, +d.distance_km])
-          );
-
-          const filteredDistricts = districts.features.filter(d =>
-            d.properties.adm1_name1 === provinceName
-          );
-
-
-          const distances = districtData.map(d => +d.distance_km);
-
-          mapLayer
-            .transition()
-            .duration(1000)
-            .attr(
-              "transform",
-              `translate(${width / 2 - scale * x},${
-                height / 2 - scale * y
-              }) scale(${scale})`
-            );
-
-          provincePaths
-            .transition()
-            .duration(1000)
-            .ease(d3.easeCubicOut)
-            .attr("opacity", (d) =>
-              d.properties.pro_th === provinceName ? 1 : 0.3
-            );
-          // Draw Districts
-          districtPaths = mapLayer
-              .append("g")
-              .attr("class", "districts")
-              .selectAll("path")
-              .data(filteredDistricts)
-              .join("path")
-              .attr("d", path)
-              .transition()
-              .duration(1000)
-              .delay(400)
-              .attr("fill" , (d) => {
-                const key = d.properties.adm2_pcode;
-                const value = distanceByDistrict.get(key)
-                return value == null ? "var(--color-black)" : colorScale(value);
-              })
-              .attr("stroke", "#333")
-              .attr("stroke-width", 0.3)
-              .attr("opacity", 0.8);
-
-          const fontScale = d3.scaleSqrt()
-            .domain(d3.extent(districts.features, d => path.area(d)))
-            .range([0.5, 3]);
-
-          mapLayer.append("g")
-              .attr("class", "district-labels")
-              .selectAll("text")
-              .data(filteredDistricts)              
-              .join("text")
-              .attr("x", d => path.centroid(d)[0])
-              .attr("y", d => path.centroid(d)[1])
-              .text(d => d.properties.adm2_name1)
-              .attr("text-anchor", "middle")
-              .attr("font-size", d => fontScale(path.area(d)))
-              .style("display", d => path.area(d) < 30 ? "none" : "block")
-              .attr("fill", "var(--color-dark)")
-              .attr("paint-order", "stroke")
-              .attr("stroke", "var(--color-accent)")
-              .attr("pointer-events", "none");
-
-          clinicCircles
-            .transition()
-            .duration(500)
-            .attr("r", (d) =>
-              d.province_name === provinceName ? 10 / scale : 6 / scale
-            )
-            .attr("opacity", (d) =>
-              d.province_name === provinceName ? 1 : 0.8
-            )
-            .attr("class", "clinic-highlight");
-          
-          // Select the layer you want to lower
-          var element = d3.select(".districts").node();
-
-          // Move it before its previous sibling
-          if (element.previousSibling) {
-              element.parentNode.insertBefore(element, element.previousSibling);
-            }
-
-          d3.select(".clinic").raise(); 
-          d3.select(".clinic-highlight").raise();
-*/
 export function zoomToProvinceTravel(
   provinceName: string,
   states: any[],
@@ -622,11 +518,11 @@ export function zoomToProvinceTravel(
     .ease(d3.easeCubicInOut)
     .attr("stroke", d =>
       d.properties.pro_th === provinceName
-        ? "var(--color-highlight)"
+        ? "var(--color-gray)"
         : "var(--color-light)"
     )
     .attr("opacity", d =>
-      d.properties.pro_th === provinceName ? 1 : 0.2
+      d.properties.pro_th === provinceName ? 0.6 : 0.2
     )
     .attr("stroke-width", d =>
       d.properties.pro_th === provinceName ? 1 : 0.2
@@ -643,7 +539,7 @@ export function zoomToProvinceTravel(
     .attr("opacity", d =>
       d.province_name === provinceName ? 1 : 0.1
     )
-    .attr("fill", "var(--color-red)");
+    .attr("fill", "var(--color-highlight)");
 
   districtPaths
   .on("mouseenter", function (event: MouseEvent) {
@@ -710,7 +606,7 @@ export function resetViewTravel(
     .attr("pointer-events", "none")
     .attr("fill", "var(--color-dark)")
     .attr("fill-opacity", "0")
-    .attr("stroke", "var(--color-highlight)")
+    .attr("stroke", "var(--color-light)")
     .attr("stroke-width", "0.5")
     .attr("opacity", "1");
 
@@ -723,7 +619,7 @@ export function resetViewTravel(
     .ease(d3.easeCubicInOut)
     .attr("opacity", 0.9)
     .attr("r", 3)
-    .attr("fill", "var(--color-red");
+    .attr("fill", "var(--color-highlight)");
 
   districtPaths
     .on("mouseenter", function (event: MouseEvent) {
@@ -843,7 +739,7 @@ export function showLegendGroup(
             .attr("cx", "15")
             .attr("cy", "60")
             .attr("r", "8")
-            .attr("fill", "var(--color-red)");
+            .attr("fill", "var(--color-highlight)");
 
           legendGroup.append("text")
             .attr("class", "clinic-label")
