@@ -196,10 +196,18 @@
         </address>
 
         <div class="social-links">
-            <a href="https://github.com/datafems" target="_blank" aria-label="Github">
+            <a href="https://github.com/datafems" target="_blank" aria-label="Github"
+              data-umami-event="social_click"
+              data-umami-event-platform="github"
+              data-umami-event-url="https://github.com/datafems"
+            >
                 <i class="fab fa-github"></i>
             </a>
-            <a href="https://www.instagram.com/datafems" target="_blank" aria-label="Instagram">
+            <a href="https://www.instagram.com/datafems" target="_blank" aria-label="Instagram"
+              data-umami-event="social_click"
+              data-umami-event-platform="instagram"
+              data-umami-event-url="https://www.instagram.com/datafems"
+            >
                 <i class="fab fa-instagram"></i>
             </a>
         </div>

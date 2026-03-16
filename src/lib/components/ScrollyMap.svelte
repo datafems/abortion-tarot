@@ -4,6 +4,9 @@
   import type { GeoProjection, GeoPath } from 'd3-geo';
   import * as mapHelpers from '$lib/utils/mapHelpers';
   import type * as Types from '$lib/types';
+  import { trackEvent } from '@lukulent/svelte-umami'
+
+  export let post: { slug: string, title: string }
 
   // Props from parent component
   export let userData = {
@@ -369,6 +372,11 @@
   });
 
 function saveCard(card: { src: string; name: string; filename: string; key: string; } | { src: string; name: string; filename: string; key: string; } | { src: string; name: string; filename: string; key: string; }) {
+  trackEvent('image_save', {
+    slug: post.slug,
+    title: post.title
+  })
+  
   const img = new Image();
   img.crossOrigin = "anonymous";
 

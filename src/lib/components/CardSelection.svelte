@@ -120,6 +120,10 @@
         class="next-button"
         disabled={!isValid}
         on:click={handleNext}
+
+        data-umami-event="start_button"
+        data-umami-event-label="StartJouney"
+        data-umami-event-location="footer"
       >
         {isValid ? 'เริ่มเรื่องราว' : 'โปรดเลือกไพ่'}
       </button>
