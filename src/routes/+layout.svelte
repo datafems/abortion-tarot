@@ -3,8 +3,28 @@
 	import favicon from '$lib/assets/favicon.png';
 	// Styles
     import '$lib/styles/app.css';
+
+	import { UmamiAnalyticsEnv } from '@lukulent/svelte-umami'
+
+	import { dev, browser } from '$app/environment'
+  	import { onMount } from 'svelte'
+
+	onMount(() => {
+		if (!dev || !browser) return
+
+		window.umami = {
+		track: (event, props) => {
+			console.group(`%c[Umami] ${event}`, 'color: #7c3aed; font-weight: bold')
+			console.table(props ?? {})
+			console.groupEnd()
+		}
+		}
+	})
+
 	let { children } = $props();
 </script>
+
+<UmamiAnalyticsEnv />
 
 <svelte:head>
 	<link rel="icon" href={favicon} />

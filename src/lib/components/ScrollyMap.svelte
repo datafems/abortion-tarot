@@ -369,7 +369,7 @@
     }
   });
 
-function saveCard(card: { src: string; name: string; filename: string; key: string; } | { src: string; name: string; filename: string; key: string; } | { src: string; name: string; filename: string; key: string; }) {
+function saveCard(card: { src: string; name: string; filename: string }, cardKey: string  ) {
   const img = new Image();
   img.crossOrigin = "anonymous";
 
@@ -402,13 +402,14 @@ function saveCard(card: { src: string; name: string; filename: string; key: stri
     link.href = pngUrl;
     link.download = `${card.filename}.png`;
     link.click();
+
+    trackEvent('image_save', {
+      name: card.name,
+      filename: card.filename,
+    })
   };
 
-  trackEvent('image_save', {
-    name: card.name,
-    filename: card.filename,
-    key: card.key
-  })
+
 
   img.src = card.src;
 }
