@@ -1,4 +1,9 @@
-import type { image } from "d3";
+const svgs = import.meta.glob('$lib/assets/card/*.svg', { eager: true, query: '?url' });
+
+function getAsset(path: string): string {
+  const key = path.replace('src/', '/src/');
+  return (svgs[key] as { default: string })?.default ?? path;
+}
 
 interface CardTheme {
   name: string;
@@ -9,8 +14,8 @@ interface CardTheme {
 // name, description, imageUrl for each card
 export const cardThemes = {
         justice: {
-          src: "src/lib/assets/card/card-1.svg",
-          back_src: "src/lib/assets/card/card-template.svg",
+          src: getAsset('src/lib/assets/card/card-1.svg'),
+          back_src: getAsset('src/lib/assets/card/card-template.svg'),
           name: 'Justice - ความยุติธรรม',
           intro: "ความยุติธรรม",
           meaning:
@@ -20,8 +25,8 @@ export const cardThemes = {
           reflect: "ความเป็นธรรมด้านสิทธิการทำแท้งเป็นยังไงบ้างในจังหวัดของคุณ\nใครคือคนที่ได้รับผลกระทบจากการทำแท้งที่ไม่ได้เข้าถึงง่าย\nคุณจะช่วยส่งเสียงผลักดันการทำแท้งปลอดภัยให้เข้าถึงง่ายสำหรับทุกคนได้อย่างไร?",
         },
         choice: {
-          src: "src/lib/assets/card/card-2.svg",
-          back_src: "src/lib/assets/card/card-template.svg",
+          src: getAsset('src/lib/assets/card/card-2.svg'),
+          back_src: getAsset('src/lib/assets/card/card-template.svg'),
           name: 'Choice - สิทธิในการเลือก',
           intro: "สิทธิในการเลือก",
           meaning:
@@ -31,8 +36,8 @@ export const cardThemes = {
           reflect: "การยืนยันสิทธิในการเลือกของคุณ ส่งแรงกระเพื่อมไปสู่การปลดปล่อยชีวิตคุณในด้านอื่นๆ อย่างไร",
         },
         healing: {
-          src: "src/lib/assets/card/card-3.svg",
-          back_src: "src/lib/assets/card/card-template.svg",
+          src: getAsset('src/lib/assets/card/card-3.svg'),
+          back_src: getAsset('src/lib/assets/card/card-template.svg'),
           name: 'Healing - การเยียวยา',
           intro: "การเยียวยา",
           meaning:
@@ -42,8 +47,8 @@ export const cardThemes = {
           reflect: "ร่างกายของคุณต้องการอะไรในตอนนี้ พักผ่อน? ขยับตัวเคลื่อนไหว? อยู่ลำพัง? อยู่ร่วมกับชุมชน? หรือเปลี่ยนแปลงสู่สิ่งใหม่?\nแล้วคุณจะดูแลความต้องการทั้งหมดนั้นได้อย่างไร",
         },
         knowledge: {
-          src: "src/lib/assets/card/card-4.svg",
-          back_src: "src/lib/assets/card/card-template.svg",
+          src: getAsset('src/lib/assets/card/card-4.svg'),
+          back_src: getAsset('src/lib/assets/card/card-template.svg'),
           name: 'Knowledge - ความรู้',
           intro: "ความรู้",
           meaning: "ข้อมูลที่ถูกต้องคือพลังอำนาจ",
@@ -52,8 +57,8 @@ export const cardThemes = {
           reflect: "ข้อมูลแบบไหนที่คุณอยากรู้เพิ่มเติมเพื่อประกอบการตัดสินใจทำแท้ง?\nคุณจะตามหาแหล่งข้อมูลที่น่าเชื่อถือได้จากไหน?\nคุณสามารถส่งต่อความรู้ที่มีไปถึงคนรอบตัวได้อย่างไร?\nความรู้และความเชื่อแบบไหนที่คุณอยากละทิ้ง แล้วเรียนรู้ขึ้นมาใหม่?",
         },
         support: {
-          src: "src/lib/assets/card/card-5.svg",
-          back_src: "src/lib/assets/card/card-template.svg",
+          src: getAsset('src/lib/assets/card/card-5.svg'),
+          back_src: getAsset('src/lib/assets/card/card-template.svg'),
           name: 'Support - การสนับสนุน',
           intro: "การสนับสนุน",
           meaning:
@@ -63,8 +68,8 @@ export const cardThemes = {
           reflect: "ใครที่พร้อมจะสนับสนุนและดูแลคุณในช่วงก่อน ระหว่าง และหลังการทำแท้งปลอดภัย? และคุณจะเป็นคนนั้นให้ผู้อื่นได้อย่างไร",
         },
         safety: {
-          src: "src/lib/assets/card/card-6.svg",
-          back_src: "src/lib/assets/card/card-template.svg",
+          src: getAsset('src/lib/assets/card/card-6.svg'),
+          back_src: getAsset('src/lib/assets/card/card-template.svg'),
           name: 'Safety - ความปลอดภัย',
           intro: "ความปลอดภัย",
           meaning:
@@ -76,19 +81,19 @@ export const cardThemes = {
       };
 
 export const actioncardThemes = {
-        safety: {
-          src: "src/lib/assets/card/action-card-1.svg",
+        legal: {
+          src: getAsset('src/lib/assets/card/action-card-1.svg'),
           name: "ยกเลิกความผิด 'การทำแท้ง' ประกันสิทธิไว้ในรัฐธรรมนูญ",
           filename: 'aborion-action-card-legal',
         },
-        provider: {
-          src: "src/lib/assets/card/action-card-2.svg",
+        safe: {
+          src: getAsset('src/lib/assets/card/action-card-2.svg'),
           name: "รัฐต้องรับรองการเข้าถึงบริการ 'ทำแท้งปลอดภัย' ของทุกคนถ้วนหน้า",
-          filename: 'aborion-action-card-access',
+          filename: 'aborion-action-card-safe',
         },
-        knowledge: {
-          src: "src/lib/assets/card/action-card-3.svg",
+        free: {
+          src: getAsset('src/lib/assets/card/action-card-3.svg'),
           name: "ควบคุมคุณภาพและมาตรฐาน 'ทำแท้งปลอดภัย' เข้าใจ ให้เกียรติ ละเอียดอ่อน",
-          filename: 'aborion-action-card-awareness',
+          filename: 'aborion-action-card-free',
         },
       };
