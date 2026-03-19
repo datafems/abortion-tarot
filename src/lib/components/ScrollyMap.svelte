@@ -28,6 +28,7 @@
   type ClinicCircles = Types.ClinicCircles;
   type DistrictPaths = Types.DistrictPaths;
 
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent)
 
   // D3 and Scrollama instances
   let scroller:any;
@@ -392,24 +393,20 @@ async function saveCard(card: { src: string; name: string; filename: string; key
     const y = (height - newHeight) / 2
     ctx.drawImage(img, x, y, newWidth, newHeight)
 
-    canvas.toBlob((blob) => {
-      if (!blob) return
+    const pngUrl = canvas.toDataURL('image/png')
 
-      track('image_save', {
-        key: card.key,
-        name: card.name,
-        filename: card.filename,
-      })
+    const link = document.createElement('a')
+    link.href = pngUrl
+    link.download = `${card.filename}.png`
+    document.body.appendChild(link) 
+    link.click()
+    document.body.removeChild(link)
 
-      // then download
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = `${card.filename}.png`
-      link.click()
-      URL.revokeObjectURL(url)
-
-    }, 'image/png')
+    track('image_save', {
+      key: card.key,
+      name: card.name,
+      filename: card.filename,
+    })
   }
 
   img.onerror = () => {
@@ -689,6 +686,9 @@ async function saveCard(card: { src: string; name: string; filename: string; key
             <div class="card-label">{card.name}</div>
           </div>
         </button>
+        {#if isIOS}
+          <p class="save-hint">กดค้างที่รูปแล้วเลือก "เพิ่มในรูปภาพ"</p>
+        {/if}
       {/each}
     </div>
     <!-- End Card selection-->
