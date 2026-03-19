@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import * as d3 from 'd3';
   import type { GeoProjection, GeoPath } from 'd3-geo';
+  import scrollama from 'scrollama';
   import * as mapHelpers from '$lib/utils/mapHelpers';
   import type * as Types from '$lib/types';
   import { track } from '$lib/analytics'

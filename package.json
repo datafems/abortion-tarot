@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@lukulent/svelte-umami": "^0.0.4",
 		"d3": "^7.9.0",
+		"scrollama": "^3.2.0",
 		"topojson-client": "^3.1.0"
 	}
 }
