@@ -88,16 +88,16 @@ export const actioncardThemes = {
         legal: {
           src: actioncard1,
           name: "ยกเลิกความผิด 'การทำแท้ง' ประกันสิทธิไว้ในรัฐธรรมนูญ",
-          filename: 'aborion-action-card-legal',
+          filename: 'abortion-action-card-legal',
         },
         safe: {
           src: actioncard2,
           name: "รัฐต้องรับรองการเข้าถึงบริการ 'ทำแท้งปลอดภัย' ของทุกคนถ้วนหน้า",
-          filename: 'aborion-action-card-safe',
+          filename: 'abortion-action-card-safe',
         },
         free: {
           src: actioncard3,
           name: "ควบคุมคุณภาพและมาตรฐาน 'ทำแท้งปลอดภัย' เข้าใจ ให้เกียรติ ละเอียดอ่อน",
-          filename: 'aborion-action-card-free',
+          filename: 'abortion-action-card-free',
         },
       };
