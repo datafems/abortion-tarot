@@ -8,7 +8,6 @@
     if (!browser) return
 
     if (dev) {
-      // in dev: override with console spy — real script never loads
       window.umami = {
         track: (event: string, props?: object) => {
           console.group(`%c[Umami] ${event}`, 'color: #7c3aed; font-weight: bold')
@@ -24,7 +23,6 @@
 
 <svelte:head>
   <link rel="icon" href={favicon} />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
   <link
@@ -33,7 +31,6 @@
   />
 
   {#if !dev}
-    <!-- real Umami only loads in production -->
     <script
       defer
       src="https://eu.umami.is/script.js"
