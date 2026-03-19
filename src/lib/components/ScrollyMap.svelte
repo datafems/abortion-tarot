@@ -4,7 +4,7 @@
   import type { GeoProjection, GeoPath } from 'd3-geo';
   import * as mapHelpers from '$lib/utils/mapHelpers';
   import type * as Types from '$lib/types';
-  import { trackEvent } from '@lukulent/svelte-umami'
+  import { track } from '$lib/analytics'
 
   // Props from parent component
   export let userData = {
@@ -369,48 +369,53 @@
     }
   });
 
-function saveCard(card: { src: string; name: string; filename: string; key: string }) {
-    const img = new Image()
-    img.crossOrigin = 'anonymous'
+async function saveCard(card: { src: string; name: string; filename: string; key: string }) {
+  const img = new Image()
+  img.crossOrigin = 'anonymous'
 
-    img.onload = function () {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
+  img.onload = async function () {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')!
 
-      const width = 1080
-      const height = 1350
-      canvas.width = width
-      canvas.height = height
+    const width = 1080
+    const height = 1350
+    canvas.width = width
+    canvas.height = height
 
-      ctx.fillStyle = '#e9d8fd'
-      ctx.fillRect(0, 0, width, height)
+    ctx.fillStyle = '#e9d8fd'
+    ctx.fillRect(0, 0, width, height)
 
-      const scale = Math.min(width / img.width, height / img.height)
-      const newWidth = img.width * scale
-      const newHeight = img.height * scale
-      const x = (width - newWidth) / 2
-      const y = (height - newHeight) / 2
-      ctx.drawImage(img, x, y, newWidth, newHeight)
+    const scale = Math.min(width / img.width, height / img.height)
+    const newWidth = img.width * scale
+    const newHeight = img.height * scale
+    const x = (width - newWidth) / 2
+    const y = (height - newHeight) / 2
+    ctx.drawImage(img, x, y, newWidth, newHeight)
 
-      const pngUrl = canvas.toDataURL('image/png')
+    canvas.toBlob(async (blob) => {
+      if (!blob) return
+
+      const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
-      link.href = pngUrl
+      link.href = url
       link.download = `${card.filename}.png`
       link.click()
+      URL.revokeObjectURL(url)
 
-      trackEvent('image_save', {
+      await track('image_save', {
         key: card.key,
         name: card.name,
         filename: card.filename,
       })
-    }
-
-    img.onerror = () => {
-      trackEvent('image_save_error', { key: card.key, src: card.src })
-    }
-
-    img.src = card.src
+    }, 'image/png')
   }
+
+  img.onerror = async () => {
+    await track('image_save_error', { key: card.key })
+  }
+
+  img.src = card.src
+}
 
 </script>
 
