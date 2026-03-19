@@ -665,6 +665,9 @@ async function saveCard(card: { src: string; name: string; filename: string; key
       <p class="subtitle" style="color:var(--color-dark); line-height: 1.2; padding-bottom: 1rem;">การทำแท้งปลอดภัยและเข้าถึงได้ง่าย</p>
       <p class="subtitle" style="color:var(--color-dark); line-height: 1.2;">คลิกที่รูปเพื่อบันทึกและแชร์ต่อ ส่งต่อความหวัง</p>
       <p class="subtitle" style="color:var(--color-dark); line-height: 1.2;">ช่วยเสริมดวงให้คำทำนายเกิดขึ้นจริง</p>
+      {#if isIOS}
+        <p class="save-hint">กดค้างที่รูปแล้วเลือก "เพิ่มในรูปภาพ"</p>
+      {/if}
     </div>
   
     <!-- Card selection-->
@@ -687,9 +690,6 @@ async function saveCard(card: { src: string; name: string; filename: string; key
             <div class="card-label">{card.name}</div>
           </div>
         </button>
-        {#if isIOS}
-          <p class="save-hint">กดค้างที่รูปแล้วเลือก "เพิ่มในรูปภาพ"</p>
-        {/if}
       {/each}
     </div>
     <!-- End Card selection-->
@@ -880,6 +880,18 @@ async function saveCard(card: { src: string; name: string; filename: string; key
   .step-content p.tip-hint {
   font-size: 0.875rem;
   color: var(--color-light);
+  background-color: color-mix(in srgb, var(--color-light) 8%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--color-light) 25%, transparent);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+  p.save-hint {
+  font-size: 0.875rem;
+  color: var(--color-secondary);
   background-color: color-mix(in srgb, var(--color-light) 8%, transparent);
   border: 1px dashed color-mix(in srgb, var(--color-light) 25%, transparent);
   border-radius: 8px;
