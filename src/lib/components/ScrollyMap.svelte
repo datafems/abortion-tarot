@@ -373,7 +373,7 @@ async function saveCard(card: { src: string; name: string; filename: string; key
   const img = new Image()
   img.crossOrigin = 'anonymous'
 
-  img.onload = async function () {
+  img.onload = function () {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')!
 
@@ -392,9 +392,16 @@ async function saveCard(card: { src: string; name: string; filename: string; key
     const y = (height - newHeight) / 2
     ctx.drawImage(img, x, y, newWidth, newHeight)
 
-    canvas.toBlob(async (blob) => {
+    canvas.toBlob((blob) => {
       if (!blob) return
 
+      track('image_save', {
+        key: card.key,
+        name: card.name,
+        filename: card.filename,
+      })
+
+      // then download
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
@@ -402,16 +409,11 @@ async function saveCard(card: { src: string; name: string; filename: string; key
       link.click()
       URL.revokeObjectURL(url)
 
-      await track('image_save', {
-        key: card.key,
-        name: card.name,
-        filename: card.filename,
-      })
     }, 'image/png')
   }
 
-  img.onerror = async () => {
-    await track('image_save_error', { key: card.key })
+  img.onerror = () => {
+    track('image_save_error', { key: card.key })
   }
 
   img.src = card.src
