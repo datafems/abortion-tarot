@@ -160,7 +160,7 @@
       </div>
       
     <section class="methodology-container">
-      <div class="methodology-content" style="text-align:justify;">
+      <div class="methodology-content">
         <h2>กระบวนการทำงาน <button class="toggle-btn" on:click={() => expanded = !expanded}>
           {expanded ? 'ซ่อน' : 'แสดง'}
         </button></h2>
@@ -178,11 +178,11 @@
           แล้วพิจารณาข้อมูลที่ตรงกันหลายแหล่งเพื่อยืนยันความถูกต้องและอัพเดทเป็นปัจจุบันให้มากที่สุด</p>
         <p>การคำนวณระยะทางจากจุดศูนย์กลางขอบเขตการปกครองเขต/อำเภอ เดินทางถึงหน่วยบริการที่ใกล้ที่สุด ใช้ API Open Source Routing Machine (OSRM)</p>
         <h2>แหล่งข้อมูล</h2>
-        <p>1. <a href="https://medata.nhso.go.th/me/public/dashboard/41/321">ผลงานบริการ - PP02003-ผลบริการและการเบิกจ่ายบริการสร้างเสริมสุขภาพ และป้องกันโรค ปีงบประมาณ 2568</a></p>
-        <p>2. <a href="https://reghosp.nhso.go.th/hospital_search">โปรแกรมค้นหาข้อมูลสถานพยาบาล</a> ด้วยประเภทข้อมูล "ศักยภาพการบริการ" - H36 : ยุติการตั้งครรภ์ สำนักงานหลักประกันสุขภาพแห่งชาติ เวอร์ชัน 1.4.24 ( 19-06-2568 )</p>
-        <p>3. <a href="https://www.ratchakitcha.soc.go.th/DATA/PDF/2564/A/010/T_0001.PDF">พระราชบัญญัติแก้ไขเพิ่มเติมประมวลกฎหมายอาญา (ฉบับที่ 26) พ.ศ.2564</a></p>
-        <p>4. <a href="https://www.facebook.com/SafeAbortionThailand/posts/pfbid0ABUfwwuwpsg3nsMho4pBtNtkRAtBEyTCZ4Hmd74xoGuYtz39z7Ckv1VdB55uWFswl?locale=th_TH">มูลนิธิทำทางเสนอกุญแจ 3 ดอก ปลดล็อกการทำแท้งปลอดภัย</a></p>
-        <p>5. <a href="https://youtu.be/A4LpFzbEIgc?si=oB-tJ4vFLeRIWSGp">ฉันแค่ทำแท้ง ฉันไม่ได้ทำผิด | พูดมาก Podcast EP.136</a></p>
+        <p>1. <a href="https://medata.nhso.go.th/me/public/dashboard/41/321"><strong>ผลงานบริการ - PP02003-ผลบริการและการเบิกจ่ายบริการสร้างเสริมสุขภาพ และป้องกันโรค ปีงบประมาณ 2568</strong></a></p>
+        <p>2. <a href="https://reghosp.nhso.go.th/hospital_search"><strong>โปรแกรมค้นหาข้อมูลสถานพยาบาล</strong></a> ด้วยประเภทข้อมูล "ศักยภาพการบริการ" - H36 : ยุติการตั้งครรภ์ สำนักงานหลักประกันสุขภาพแห่งชาติ เวอร์ชัน 1.4.24 ( 19-06-2568 )</p>
+        <p>3. <a href="https://www.ratchakitcha.soc.go.th/DATA/PDF/2564/A/010/T_0001.PDF"><strong>พระราชบัญญัติแก้ไขเพิ่มเติมประมวลกฎหมายอาญา (ฉบับที่ 26) พ.ศ.2564</strong></a></p>
+        <p>4. <a href="https://www.facebook.com/SafeAbortionThailand/posts/pfbid0ABUfwwuwpsg3nsMho4pBtNtkRAtBEyTCZ4Hmd74xoGuYtz39z7Ckv1VdB55uWFswl?locale=th_TH"><strong>มูลนิธิทำทางเสนอกุญแจ 3 ดอก ปลดล็อกการทำแท้งปลอดภัย</strong></a></p>
+        <p>5. <a href="https://youtu.be/A4LpFzbEIgc?si=oB-tJ4vFLeRIWSGp"><strong>ฉันแค่ทำแท้ง ฉันไม่ได้ทำผิด | พูดมาก Podcast EP.136</strong></a></p>
       {/if}
       </div>
     </section>
