@@ -549,7 +549,7 @@ export function zoomToProvinceTravel(
     const key = d.properties.adm2_pcode?.trim();
     const distance = distanceByDistrict.get(key);
     onTooltip({ visible: true, x: event.offsetX, y: event.offsetY, content: `${d.properties.adm2_name1}\n${d.properties.adm1_name1}\n${distance} กม.` });
-    target.attr("stroke-width", 3);
+    target.attr("stroke-width", 1.2);
   })
   .on("mousemove", function (event: MouseEvent) {
     const d = d3.select(event.target as Element).datum() as any;
@@ -694,13 +694,19 @@ export function showLegendGroup(
     legend.attr("transform", width < 500 ? "translate(190,400) scale(0.85)" : "translate(750,400) scale(0.85)");
   }
 
-  const colorScale = d3.scaleSequential()
-            .domain([0, 240])
-            .interpolator(d3.interpolateRgbBasis([
-"#e9d8fd", "#a9a3c1", "#66697c", "#1a202c",
-            ]));
-            
-  const steps = 4
+
+ const colorScale = d3.scaleSequential()
+    .domain([0, 240])
+    .interpolator(d3.interpolateRgb("var(--color-secondary)", "var(--color-light)"));
+  
+    
+  const legendData = [
+  { color: "var(--color-secondary)", value: 0 },
+  { color: "var(--color-light)", value: 240 }
+]  
+
+  /*
+  const steps = 5
   const legendData = d3.range(steps).map(i => {
   const t = i / (steps-1);
   const value = colorScale.domain()[0] + t * (colorScale.domain()[1] - colorScale.domain()[0]);
@@ -710,7 +716,7 @@ export function showLegendGroup(
     value: Math.round(value)
     }
   })
-
+  */
 
           const legendGroup = legend.append("g")
             .attr("class", "legend-group");
@@ -726,6 +732,7 @@ export function showLegendGroup(
             .style("text-decoration-thickness", "5px")
             .style("text-decoration-color", "var(--color-highlight)");
 
+          /*
           legendGroup.selectAll("rect")
             .data(legendData)
             .join("rect")
@@ -733,6 +740,18 @@ export function showLegendGroup(
             .attr("width", "30")
             .attr("height", "18")
             .attr("fill", (d: { color: any; }) => d.color);
+          */
+          const grad = legendGroup.append("linearGradient").attr("id", "legend-gradient")
+         
+          grad.append("stop").attr("offset", "0%").attr("stop-color", "var(--color-secondary)")
+          grad.append("stop").attr("offset", "100%").attr("stop-color", "var(--color-light)")
+
+          legendGroup.append("rect")
+            .attr("x", "15")
+            .attr("y", "0")
+            .attr("width", "165")
+            .attr("height", "18")
+            .style("fill", "url(#legend-gradient)")
 
           legendGroup.append("circle")
             .attr("class", "clinic-symbol")
@@ -758,7 +777,8 @@ export function showLegendGroup(
             .style("font-weight", "500")
             .style("font-size", "13px")
             .style("fill", "var(--color-light)");
-
+          
+          /*
           legendGroup.selectAll("text.legend-label")
             .data(legendData)
             .join("text")
@@ -766,6 +786,25 @@ export function showLegendGroup(
             .attr("x", (d: any, i: number) => i * 30 + 8)
             .attr("y", "34")
             .text(d => `${d.value}`)
+            .style("font-size", "11px")
+            .style("font-weight", "400")
+            .style("fill", "var(--color-light)");
+          */
+          legendGroup.append("text")
+            .attr("class", "legend-label")
+            .attr("x", 15)
+            .attr("y", 34)
+            .text("0")
+            .style("font-size", "11px")
+            .style("font-weight", "400")
+            .style("fill", "var(--color-light)");
+
+          legendGroup.append("text")
+            .attr("class", "legend-label")
+            .attr("x", 180) 
+            .attr("y", 34)
+            .attr("text-anchor", "end")
+            .text("240")
             .style("font-size", "11px")
             .style("font-weight", "400")
             .style("fill", "var(--color-light)");

@@ -103,26 +103,29 @@
           (data: { visible: boolean; x: number; y: number; content: string; }) => {tooltip = data;}
         );
         break;
-      
-      case 6: // Access Province
+
+      case 6: // User's province
+        break;        
+        
+      case 7: // Access Province
         mapHelpers.clearScrollGraphicBackground(mapLayer);
         mapHelpers.zoomToProvinceTravel(province,states,path,width,height,mapLayer,provincePaths,clinicCircles, districtPaths, distanceByDistrict, (data: { visible: boolean; x: number; y: number; content: string; }) => {tooltip = data;});
         mapHelpers.showLegendGroup(province, states, path, width, height, mapLayer,true);
         break;
       
-      case 7: // Access Overview
+      case 8: // Access Overview
         mapHelpers.clearScrollGraphicBackground(mapLayer);
         mapHelpers.resetViewTravel(mapLayer, provincePaths, clinicCircles,districtPaths, distanceByDistrict, (data: { visible: boolean; x: number; y: number; content: string; }) => {tooltip = data;});
         mapHelpers.showLegendGroup(province, states, path, width, height, mapLayer,false);
         break;
       
-      case 8: // ดวงการเงิน ดวงการงาน - ค่าใช้จ่าย 
+      case 9: // ดวงการเงิน ดวงการงาน - ค่าใช้จ่าย 
         break;
       
-      case 9: // Telemed
+      case 10: // Telemed
         break;
 
-      case 10: // ดวงความเสี่ยง - จังหวัดที่ไม่มีข้อมูลสถานบริการ สปสช.
+      case 11: // ดวงความเสี่ยง - จังหวัดที่ไม่มีข้อมูลสถานบริการ สปสช.
         mapHelpers.clearScrollGraphicBackground(mapLayer);
         mapHelpers.resetView(mapLayer, provincePaths, clinicCircles, districtPaths);
         setTimeout(() => {
@@ -142,7 +145,7 @@
         }, 500);
         break;
 
-      case 11: // ดวงความเสี่ยง - จังหวัดที่ไม่มีสถานบริการ
+      case 12: // ดวงความเสี่ยง - จังหวัดที่ไม่มีสถานบริการ
         setTimeout(() => {
           mapHelpers.highlightProvincesNonAccess(
           [
@@ -163,23 +166,23 @@
         }, 500);
         break; 
         
-      case 12: // ดวงความเสี่ยง - อคติจากบุคลากรทางการแพทย์
+      case 13: // ดวงความเสี่ยง - อคติจากบุคลากรทางการแพทย์
         mapHelpers.clearScrollGraphicBackground(mapLayer);
         setTimeout(() => {
           mapHelpers.clearBlankMap();
         }, 1000);
         break;
 
-      case 13: // สิ่งดวงดาวกำลังสื่อสาร ไม่ใช่ความผิดของคุณ
-        break;
-
-      case 14: // Reframe
+      case 14: // สิ่งดวงดาวกำลังสื่อสาร ไม่ใช่ความผิดของคุณ
         break;
 
       case 15: // Reframe
         break;
 
-      case 16: // คุณมีส่วนช่วยเปลี่ยนดวงชะตาของคนจำนวนมากได้ - เลือกไพ่ที่คุณสนใจและอยากแชร์ต่อ
+      case 16: // Reframe
+        break;
+
+      case 17: // คุณมีส่วนช่วยเปลี่ยนดวงชะตาของคนจำนวนมากได้ - เลือกไพ่ที่คุณสนใจและอยากแชร์ต่อ
         // Show Action Card
         break;
     }
@@ -260,11 +263,16 @@
             districtData.map(d => [d.adm2_pcode.trim(), +d.distance_km])
             );
 
+        /*
         const colorScale = d3.scaleSequential()
             .domain([0, 240])
             .interpolator(d3.interpolateRgbBasis([
-"#e9d8fd", "#a9a3c1", "#66697c", "#1a202c", 
+"#e9d8fd", "#aba5d3", "#646fa1", "#002f61"
             ]));
+        */
+       const colorScale = d3.scaleSequential()
+    .domain([0, 240])
+    .interpolator(d3.interpolateRgb("#954e99", "#f7fafc"));
 
       // Draw Districts
       districtPaths = mapLayer
@@ -280,7 +288,7 @@
         })
         .attr("stroke", "#333")
         .attr("stroke-width", 0.5)
-        .attr("opacity", 0.8);
+        .attr("opacity", 0.0);
           
       // Draw clinics
       clinicCircles = mapLayer.selectAll("circle")
@@ -291,7 +299,7 @@
         .attr("cy", (d: { lon: string | number; lat: string | number; }) => projection([+d.lon, +d.lat])[1])
         .attr("r", 3)
         .attr("fill", "var(--color-highlight)")
-        .attr("opacity", 0.8);
+        .attr("opacity", 0.0);
 
       console.log('Map rendered successfully');
 
@@ -523,14 +531,13 @@ async function saveCard(card: { src: string; name: string; filename: string; key
       </div>
     </div>
 
-    <!-- Step 5: User's Province -->
+    <!-- Step 5.1: User's Province -->
     <div class="step">
       <div class="step-content">
         <h2>{province}</h2>
         {#if clinicCount === 0}
         <!-- กรณีจังหวัดไม่พบข้อมูล -->
         <p>จังหวัดของคุณไม่พบข้อมูลหน่วยบริการทำแท้งปลอดภัย</p>
-        <p class="description">โรงพยาบาล/คลินิกที่ให้บริการอาจไม่เข้าร่วมสิทธิสปสช. ติดต่อ 1669 เพื่อรับปรึกษา</p>
         <p class="question-highlight">โรงพยาบาล/คลินิกที่คุณใช้บริการ มีบริการทำแท้งปลอดภัยไหม?</p>
         {:else}
         <!-- กรณีจังหวัดมีข้อมูล -->
@@ -538,6 +545,15 @@ async function saveCard(card: { src: string; name: string; filename: string; key
         <p class="tip-hint">ลองคลิกที่หน่วยบริการทำแท้งปลอดภัยบนแผนที่</p>  
         <p class="question-highlight">โรงพยาบาล/คลินิกที่คุณใช้บริการ มีบริการทำแท้งปลอดภัยไหม?</p>
         {/if}
+      </div>
+    </div>
+
+    <!-- Step 5.2: User's Province -->
+    <div class="step">
+      <div class="step-content">
+        <h2>สิทธิที่คุณมีอยู่แล้ว</h2>
+        <p class="description">คุณมีสิทธิได้รับเงินสนับสนุนค่ายุติการตั้งครรภ์จากสปสช. 3,000 บาท โรงพยาบาล/คลินิกที่ให้บริการบางแห่งอาจไม่เข้าร่วมสิทธิสปสช. 
+          ติดต่อมูลนิธิทำทาง ได้ที่ Line : @tamtang หรือสายด่วน 1663 เพื่อรับปรึกษา</p>
       </div>
     </div>
 
@@ -606,7 +622,7 @@ async function saveCard(card: { src: string; name: string; filename: string; key
     <div class="step">
       <div class="step-content">
         <h2>ดวงความเสี่ยงจากอคติและการตีตราให้รู้สึกผิด</h2>
-        <p>อคติและความไม่รู้กฎหมายของบุคลากรทางการแพทย์อาจเป็นปัจจัยเสี่ยงที่ทำให้การเข้าถึงและรับบริการทำแท้งปลอดภัยเกิดขึ้นได้ยาก
+        <p>อคติและความเข้าใจคลาดเคลื่อนต่อกฎหมายของบุคลากรทางการแพทย์อาจเป็นปัจจัยเสี่ยงที่ทำให้การเข้าถึงและรับบริการทำแท้งปลอดภัยเกิดขึ้นได้ยาก
           หรือเกิดขึ้นได้ แต่ตั้งเงื่อนไขที่ไม่จำเป็นและทิ้งร่องรอยความรู้สึกผิดไปยังผู้รับบริการ</p>
       </div>
     </div>
